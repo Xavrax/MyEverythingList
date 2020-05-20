@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "56418487625",
+    "firebase_url": "https://myeverythinglist-ba2ca.firebaseio.com",
+    "project_id": "myeverythinglist-ba2ca",
+    "storage_bucket": "myeverythinglist-ba2ca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:56418487625:android:3693315acb28be27fe9e98",
+        "android_client_info": {
+          "package_name": "com.xavrax.myeverythinglist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "56418487625-t3qapcfnhd25586rrakgfiemllmqmilp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBr77ERnCscXw3V0AxGVWVg1Qo7Li7ZED4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "56418487625-t3qapcfnhd25586rrakgfiemllmqmilp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
