@@ -2,8 +2,10 @@ package com.xavrax.myeverythinglist
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.widget.TextView
+import android.widget.Toast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
@@ -18,6 +20,7 @@ import androidx.appcompat.widget.Toolbar
 import com.google.firebase.auth.FirebaseAuth
 import com.xavrax.myeverythinglist.data.LoginRepository
 import com.xavrax.myeverythinglist.data.MoviesRepository
+import com.xavrax.myeverythinglist.data.model.MovieEntity
 import com.xavrax.myeverythinglist.ui.login.LoginActivity
 
 class MainActivity : AppCompatActivity() {
@@ -51,7 +54,6 @@ class MainActivity : AppCompatActivity() {
 
         updateUsernameAndEmail(navView)
 
-        MoviesRepository.getPopularMovies();
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -79,6 +81,5 @@ class MainActivity : AppCompatActivity() {
         usernameView.text = email.split('@').first()
         emailView.text = email
     }
-
 
 }

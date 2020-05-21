@@ -3,6 +3,7 @@ package com.xavrax.myeverythinglist.data
 import android.util.Log
 import com.xavrax.myeverythinglist.data.api.Api
 import com.xavrax.myeverythinglist.data.model.GetMoviesResponse
+import com.xavrax.myeverythinglist.data.model.MovieEntity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,7 +23,7 @@ object MoviesRepository {
         api = retrofit.create(Api::class.java)
     }
 
-    fun getPopularMovies(page: Int = 1) {
+    fun getPopularMovies(page: Int = 1, onSuccess: (movies: List<MovieEntity>) -> Unit, onError: () -> Unit) {
         api.getPopularMovies(page = page)
             .enqueue(object : Callback<GetMoviesResponse> {
                 override fun onResponse(
@@ -33,15 +34,17 @@ object MoviesRepository {
                         val responseBody = response.body()
 
                         if (responseBody != null) {
-                            Log.d("Repository", "Movies: ${responseBody.movies}")
+                            onSuccess.invoke(responseBody.movies)
                         } else {
-                            Log.d("Repository", "Failed to get response")
+                            onError.invoke()
                         }
+                    } else {
+                        onError.invoke()
                     }
                 }
 
                 override fun onFailure(call: Call<GetMoviesResponse>, t: Throwable) {
-                    Log.e("Repository", "onFailure", t)
+                    onError.invoke()
                 }
             })
     }
