@@ -1,12 +1,8 @@
 package com.xavrax.myeverythinglist
 
-import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
-import android.view.MenuItem
-import android.view.View
 import android.widget.TextView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -18,15 +14,11 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.view.menu.MenuView
 import androidx.appcompat.widget.Toolbar
 import com.google.firebase.auth.FirebaseAuth
 import com.xavrax.myeverythinglist.data.LoginRepository
-import com.xavrax.myeverythinglist.data.MovieAdapter
-import com.xavrax.myeverythinglist.data.model.MovieEntity
+import com.xavrax.myeverythinglist.data.MoviesRepository
 import com.xavrax.myeverythinglist.ui.login.LoginActivity
-import kotlinx.android.synthetic.main.activity_login.view.*
-import kotlinx.android.synthetic.main.fragment_home.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -58,6 +50,8 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         updateUsernameAndEmail(navView)
+
+        MoviesRepository.getPopularMovies();
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
