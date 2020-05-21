@@ -1,7 +1,10 @@
 package com.xavrax.myeverythinglist
 
+import android.content.ContentValues
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
+import android.widget.TextView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
@@ -13,10 +16,15 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_login.view.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
+
+    private var firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +46,13 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        val usernameView : TextView = navView.getHeaderView(0).findViewById(R.id.logged_username)
+        val emailView : TextView = navView.getHeaderView(0).findViewById(R.id.logged_email)
+
+        val email = firebaseAuth.currentUser!!.email!!
+        usernameView.text = email.split('@').first()
+        emailView.text = email
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
