@@ -1,6 +1,7 @@
 package com.xavrax.myeverythinglist
 
 import android.content.ContentValues
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -17,7 +18,12 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.google.firebase.auth.FirebaseAuth
+import com.xavrax.myeverythinglist.data.LoginRepository
+import com.xavrax.myeverythinglist.data.MovieAdapter
+import com.xavrax.myeverythinglist.data.model.MovieEntity
+import com.xavrax.myeverythinglist.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_login.view.*
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,6 +43,9 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
+
+
+
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
@@ -47,17 +56,13 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        val usernameView : TextView = navView.getHeaderView(0).findViewById(R.id.logged_username)
-        val emailView : TextView = navView.getHeaderView(0).findViewById(R.id.logged_email)
-
-        val email = firebaseAuth.currentUser!!.email!!
-        usernameView.text = email.split('@').first()
-        emailView.text = email
+        updateUsernameAndEmail(navView)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
+
         return true
     }
 
@@ -65,4 +70,15 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
+    private fun updateUsernameAndEmail(navigationView: NavigationView) {
+        val usernameView : TextView = navigationView.getHeaderView(0).findViewById(R.id.logged_username)
+        val emailView : TextView = navigationView.getHeaderView(0).findViewById(R.id.logged_email)
+
+        val email = firebaseAuth.currentUser!!.email!!
+        usernameView.text = email.split('@').first()
+        emailView.text = email
+    }
+
+
 }
