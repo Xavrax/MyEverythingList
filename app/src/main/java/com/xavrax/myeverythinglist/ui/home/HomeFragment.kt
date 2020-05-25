@@ -1,5 +1,6 @@
 package com.xavrax.myeverythinglist.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,7 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.xavrax.myeverythinglist.R
+import com.xavrax.myeverythinglist.*
 import com.xavrax.myeverythinglist.data.MovieAdapter
 import com.xavrax.myeverythinglist.data.MoviesRepository
 import com.xavrax.myeverythinglist.data.model.MovieEntity
@@ -52,7 +53,7 @@ class HomeFragment : Fragment() {
             onError = ::onPopularMoviesError
         )
 
-        adapter = MovieAdapter(this.context!!, MoviesList)
+        adapter = MovieAdapter(this.context!!, MoviesList){movie -> showMovieDetails(movie) }
 
         home_movies.adapter = adapter
     }
@@ -65,4 +66,14 @@ class HomeFragment : Fragment() {
         Toast.makeText(this.activity, getString(R.string.error_fetch_movies), Toast.LENGTH_SHORT).show()
     }
 
+    private fun showMovieDetails(movie: MovieEntity) {
+        val intent = Intent(activity, DetailsActivity::class.java)
+        intent.putExtra(MOVIE_BACKDROP, movie.backdropPath)
+        intent.putExtra(MOVIE_POSTER, movie.posterPath)
+        intent.putExtra(MOVIE_TITLE, movie.title)
+        intent.putExtra(MOVIE_RATING, movie.rating)
+        intent.putExtra(MOVIE_RELEASE_DATE, movie.releaseDate)
+        intent.putExtra(MOVIE_OVERVIEW, movie.overview)
+        startActivity(intent)
+    }
 }

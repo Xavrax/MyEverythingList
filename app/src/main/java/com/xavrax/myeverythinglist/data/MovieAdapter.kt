@@ -1,6 +1,7 @@
 package com.xavrax.myeverythinglist.data
 
 import android.content.Context
+import android.graphics.Movie
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +13,10 @@ import com.xavrax.myeverythinglist.data.model.MovieEntity
 import com.xavrax.myeverythinglist.data.model.MovieViewEntity
 import kotlinx.android.synthetic.main.movie_entry.view.*
 
-class MovieAdapter(context: Context, foodsList: ArrayList<MovieViewEntity>) : BaseAdapter() {
+class MovieAdapter(context: Context, foodsList: ArrayList<MovieViewEntity>, val onMovieClick: (movie:MovieEntity) -> Unit) : BaseAdapter() {
     var foodsList = foodsList
     var context: Context? = context
+    var moviesFullInfo : MutableList<MovieEntity> = mutableListOf<MovieEntity>();
 
     override fun getCount(): Int {
         return foodsList.size
@@ -40,11 +42,15 @@ class MovieAdapter(context: Context, foodsList: ArrayList<MovieViewEntity>) : Ba
             .into(foodView.imgMovie)
 
         foodView.movieTitle.text = food.name!!
+        foodView.setOnClickListener{
+            onMovieClick.invoke(moviesFullInfo[position])
+        }
 
         return foodView
     }
 
     fun updateMovies(movies: List<MovieEntity>) {
+        moviesFullInfo = movies.toMutableList()
         val list : MutableList<MovieViewEntity> = mutableListOf()
         movies.forEach{
             list.add(MovieViewEntity(it.title, it.posterPath))
