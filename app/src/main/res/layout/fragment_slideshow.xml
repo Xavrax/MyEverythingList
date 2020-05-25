@@ -6,6 +6,32 @@
     android:layout_height="match_parent"
     tools:context=".ui.slideshow.SlideshowFragment">
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/to_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/text_slideshow"
+        app:layout_constraintTop_toTopOf="@+id/home_movies"
+        app:layout_constraintVertical_bias="0.13">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/to_search_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="hint" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/search_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/text_slideshow"
+        app:layout_constraintEnd_toEndOf="@+id/text_slideshow"
+        app:layout_constraintStart_toStartOf="@+id/text_slideshow"
+        app:layout_constraintTop_toBottomOf="@+id/to_search"
+        app:layout_constraintVertical_bias="0.0" />
+
     <TextView
         android:id="@+id/text_slideshow"
         android:layout_width="match_parent"
@@ -19,4 +45,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <GridView
+        android:id="@+id/home_movies"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnWidth="150dp"
+        android:horizontalSpacing="15dp"
+        android:numColumns="auto_fit"
+        android:verticalSpacing="15dp" >
+
+    </GridView>
 </androidx.constraintlayout.widget.ConstraintLayout>
